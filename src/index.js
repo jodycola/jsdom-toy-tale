@@ -27,16 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
     collection.append(card)
 
     card.innerHTML = `<h2>${toy.name}</h2><img src=${toy.image} class="toy-avatar" width="250" height="250"><p>${toy.likes} Likes</p><button class="like-btn">Like </button>`
-    
-    // const likeBtn = document.querySelectorAll(".like-btn")
-    // console.log(likeBtn)
-    
-    // likeBtn.addEventListener('click', updateLikes)
+    card.dataset.id = toy.id
    
     
   }
   
-  form.addEventListener('submit',createNewToy)
+  form.addEventListener('submit', createNewToy)
   
   function createNewToy(e){
     e.preventDefault()
@@ -55,26 +51,30 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset()
   }
   
-  
 
-  toyCollection.addEventListener('click', updateLikes)
+toyCollection.addEventListener('click', updateLikes)
   
-
-
- function updateLikes(e){
-  
+  function updateLikes(e){
+    if (e.target.className === 'like-btn') {
+      const card = e.target.closest('div.card')
+      const likeTag = card.querySelector("p")
+      const likes = parseInt(likeTag.textContent)
    
- 
-    if(e.target == 'like-btn')
-      console.log(e.target.closest('div'))
-      // fetch(`http://localhost:3000/toys`,{
-      //   method: 'PATCH',
-      //   headers:{
-      //     'Content-Type': 'application/json',
-      //   }
-      // })
-  
+
+       fetch (`http://localhost:3000/toys/${card.dataset.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({likes: likes + 1})
+      })
+        .then(response => response.json())
+        .then(data => {
+          likeTag.textContent = `${data.likes} Likes`
+        })
+      
+    }
+     
  }
 });
-
-
