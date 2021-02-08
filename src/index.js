@@ -30,34 +30,23 @@ document.addEventListener("DOMContentLoaded", () => {
   
   form.addEventListener('submit',createNewToy)
   
-  // function createNewToy(e){
-  //   e.preventDefault()
+  function createNewToy(e){
+    e.preventDefault()
     
-  //   const toyData = {name: e.target[0].value, image: e.target[1].value}
+    const toyData = {name: e.target[0].value, image: e.target[1].value}
 
-  //   fetch(`http://localhost:3000/toys`,{
-  //     method: 'POST',
-  //     headers:{
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(toyData),
-  //   })
-  //   .then(response => response.json())
-  //   .then(input => console.log(input))
-  // }
+    fetch(`http://localhost:3000/toys`,{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(toyData),
+    })
+    .then(response => response.json())
+    .then(input => renderToys(input))
+    form.reset()
+  }
   
 });
 
-// const data = { username: 'example' };
 
-// fetch('https://example.com/profile', {
-//   method: 'POST', // or 'PUT'
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(data),
-// })
-// .then(response => response.json())
-// .then(data => {
-//   console.log('Success:', data);
-// })
