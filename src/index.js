@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector(".add-toy-form")
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
+  const  toyCollection = document.querySelector('#toy-collection')
+  
   addBtn.addEventListener("click", () => {
     // hide & seek with the form
     addToy = !addToy;
@@ -26,6 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     card.innerHTML = `<h2>${toy.name}</h2><img src=${toy.image} class="toy-avatar" width="250" height="250"><p>${toy.likes} Likes</p><button class="like-btn">Like </button>`
     
+    // const likeBtn = document.querySelectorAll(".like-btn")
+    // console.log(likeBtn)
+    
+    // likeBtn.addEventListener('click', updateLikes)
+   
+    
   }
   
   form.addEventListener('submit',createNewToy)
@@ -47,6 +55,26 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset()
   }
   
+  
+
+  toyCollection.addEventListener('click', updateLikes)
+  
+
+
+ function updateLikes(e){
+  
+   
+ 
+    if(e.target == 'like-btn')
+      console.log(e.target.closest('div'))
+      // fetch(`http://localhost:3000/toys`,{
+      //   method: 'PATCH',
+      //   headers:{
+      //     'Content-Type': 'application/json',
+      //   }
+      // })
+  
+ }
 });
 
 
